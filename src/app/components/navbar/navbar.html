@@ -1,0 +1,32 @@
+<header class="navbar" [class.navbar--scrolled]="scrolled()">
+  <div class="navbar__inner">
+    <button class="navbar__logo" (click)="scrollTo('hero')">
+      AL<span class="navbar__dot">.</span>
+    </button>
+
+    <nav class="navbar__links">
+      <button (click)="scrollTo('about')">Sobre mí</button>
+      <button (click)="scrollTo('skills')">Habilidades</button>
+      <button (click)="scrollTo('projects')">Proyectos</button>
+      <button class="navbar__cta" (click)="scrollTo('contact')">Contacto</button>
+    </nav>
+
+    <button
+      class="hamburger"
+      [class.hamburger--open]="menuOpen()"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" [class.mobile-menu--open]="menuOpen()">
+    <button (click)="scrollTo('about')">Sobre mí</button>
+    <button (click)="scrollTo('skills')">Habilidades</button>
+    <button (click)="scrollTo('projects')">Proyectos</button>
+    <button (click)="scrollTo('contact')">Contacto</button>
+  </div>
+</header>

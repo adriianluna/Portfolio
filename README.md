@@ -1,59 +1,129 @@
-# PortFolio
+# Adrián Luna Domínguez — Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Portfolio web profesional construido con **Angular 21**, **Tailwind CSS** y desplegable en **Railway** y **Vercel**.
 
-## Development server
+## Stack
 
-To start a local development server, run:
+- Angular 21 (standalone components)
+- Tailwind CSS 3
+- TypeScript
+- Express (servidor de producción)
+- Google Fonts: Bebas Neue + Space Grotesk + JetBrains Mono
+- Devicons CDN
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Desarrollo local
 
 ```bash
-ng generate --help
+# Instalar dependencias
+npm install
+
+# Servidor de desarrollo (http://localhost:4200)
+npm run dev
 ```
 
-## Building
+---
 
-To build the project run:
+## Build de producción
 
 ```bash
-ng build
+npm run build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+El build genera los archivos estáticos en `dist/portFolio/browser/`.
 
-## Running unit tests
+---
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Despliegue en Railway
 
-```bash
-ng test
+Railway detecta automáticamente Node.js con `npm run build` y `npm start`.
+
+### Pasos:
+
+1. Sube el repositorio a GitHub.
+2. Entra en [railway.app](https://railway.app) y crea un nuevo proyecto desde tu repo.
+3. Railway ejecutará `npm run build` (genera `dist/portFolio/browser/`) y luego `npm start` (arranca `server.js`).
+4. Configura la variable de entorno si necesitas un puerto específico:
+   - `PORT` → Railway lo inyecta automáticamente (`process.env.PORT`).
+5. Haz clic en **Deploy** y Railway te dará una URL pública.
+
+### Variables de entorno en Railway
+
+| Variable | Descripción         | Valor por defecto |
+|----------|---------------------|-------------------|
+| `PORT`   | Puerto del servidor | 3000 (Railway lo sobreescribe) |
+
+No se necesita ninguna configuración adicional.
+
+---
+
+## Despliegue en Vercel
+
+Vercel sirve sitios estáticos directamente desde la carpeta `dist/`.
+
+### Pasos:
+
+1. Sube el repositorio a GitHub.
+2. Entra en [vercel.com](https://vercel.com) y crea un nuevo proyecto importando el repo.
+3. En la configuración del proyecto:
+   - **Framework Preset:** Other
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `dist/portFolio/browser`
+   - **Install Command:** `npm install`
+4. Haz clic en **Deploy**.
+
+> **Nota:** Vercel sirve archivos estáticos, por lo que no necesitas `server.js`. El routing de Angular SPA se gestiona automáticamente con un archivo `vercel.json` (opcional):
+
+```json
+{
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Personalización
 
-```bash
-ng e2e
+### Foto de perfil
+
+Sustituye el placeholder en `src/app/components/hero/hero.html`. Añade tu imagen en `public/` y úsala así:
+
+```html
+<!-- En hero.html, reemplaza el contenido de .hero__avatar -->
+<img src="tu-foto.jpg" alt="Adrián Luna" style="width:100%;height:100%;object-fit:cover;" />
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Links de LinkedIn y GitHub
 
-## Additional Resources
+Busca y reemplaza los placeholders en estos archivos:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- `src/app/components/contact/contact.html` → `YOUR_LINKEDIN`, `YOUR_GITHUB`
+- `src/app/components/footer/footer.html` → `YOUR_LINKEDIN`, `YOUR_GITHUB`
+
+### Proyectos reales
+
+Edita el array `projects` en `src/app/components/projects/projects.ts` con tus proyectos reales y sustituye los `'#'` de `github` y `demo` por las URLs correspondientes.
+
+---
+
+## Estructura del proyecto
+
+```
+src/app/
+├── components/
+│   ├── navbar/       # Navbar fija con blur al hacer scroll
+│   ├── hero/         # Sección hero con avatar circular y animaciones
+│   ├── about/        # Sobre mí con stats
+│   ├── skills/       # Grid de tecnologías con devicons
+│   ├── projects/     # 3 tarjetas de proyectos
+│   ├── contact/      # Email, LinkedIn, GitHub
+│   └── footer/       # Copyright
+├── app.ts            # Componente raíz
+├── app.html          # Template raíz
+└── app.css           # Estilos globales del componente raíz
+
+server.js             # Servidor Express para Railway
+tailwind.config.js    # Configuración de Tailwind CSS
+postcss.config.js     # Configuración de PostCSS
+```

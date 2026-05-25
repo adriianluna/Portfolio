@@ -1,0 +1,136 @@
+.skills {
+  padding: 8rem 0;
+  background: #0d0d0d;
+}
+
+.skills__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.skills__label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.skills__number {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 5rem;
+  color: rgba(0, 255, 136, 0.08);
+  line-height: 1;
+}
+
+.skills__tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: #00ff88;
+  opacity: 0.7;
+}
+
+.skills__title {
+  font-family: 'Bebas Neue', cursive;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  color: #fff;
+  margin-bottom: 3.5rem;
+}
+
+.skills__accent {
+  color: #00ff88;
+}
+
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+/* Skill card */
+.skill-card {
+  position: relative;
+  background: #111;
+  border: 1px solid #1c1c1c;
+  padding: 1.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: default;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.skill-card::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #00ff88;
+  transform: scaleX(0);
+  transition: transform 0.35s ease;
+  transform-origin: left;
+}
+
+.skill-card:hover {
+  border-color: rgba(0, 255, 136, 0.25);
+  background: #131313;
+  transform: translateY(-5px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 255, 136, 0.08);
+}
+
+.skill-card:hover::before {
+  transform: scaleX(1);
+}
+
+.skill-card__icon {
+  font-size: 2.6rem;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover .skill-card__icon {
+  transform: scale(1.15);
+}
+
+.skill-card__name {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.skill-card__cat {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: #00ff88;
+  opacity: 0.55;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* Scroll animation */
+.section-fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .skills {
+    padding: 5rem 0;
+  }
+
+  .skills__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

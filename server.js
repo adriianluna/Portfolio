@@ -1,0 +1,16 @@
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+const DIST = path.join(__dirname, 'dist', 'portFolio', 'browser');
+
+app.use(express.static(DIST));
+
+app.use((_req, res) => {
+  res.sendFile(path.join(DIST, 'index.html'));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});

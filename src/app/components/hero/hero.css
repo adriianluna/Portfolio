@@ -190,7 +190,8 @@
 .hero__avatar {
   width: 100%;
   height: 100%;
-  background: #0f0f0f;
+  overflow: hidden;  /* ← clave para que no salga del círculo */
+  background: transparent;
   border-radius: 50%;
   display: flex;
   flex-direction: column;

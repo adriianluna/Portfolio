@@ -21,12 +21,15 @@ export class SkillsComponent implements AfterViewInit {
     { name: 'HTML5', icon: 'devicon-html5-original colored', category: 'Frontend' },
     { name: 'CSS3', icon: 'devicon-css3-original colored', category: 'Frontend' },
     { name: 'Tailwind CSS', icon: 'devicon-tailwindcss-plain colored', category: 'Frontend' },
+    { name: 'Flutter', icon: 'devicon-flutter-plain colored', category: 'Mobile' },
+    { name: 'Dart', icon: 'devicon-dart-plain colored', category: 'Mobile' },
     { name: '.NET / C#', icon: 'devicon-dotnetcore-plain colored', category: 'Backend' },
     { name: 'Node.js', icon: 'devicon-nodejs-plain colored', category: 'Backend' },
     { name: 'Java', icon: 'devicon-java-original colored', category: 'Backend' },
     { name: 'Spring Boot', icon: 'devicon-spring-original colored', category: 'Backend' },
     { name: 'PostgreSQL', icon: 'devicon-postgresql-plain colored', category: 'Database' },
     { name: 'SQL / MySQL', icon: 'devicon-mysql-original colored', category: 'Database' },
+    { name: 'Docker', icon: 'devicon-docker-plain colored', category: 'DevOps' },
     { name: 'Git', icon: 'devicon-git-original colored', category: 'Tools' },
   ];
 

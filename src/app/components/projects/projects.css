@@ -41,6 +41,22 @@
   color: #00ff88;
 }
 
+.projects__subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(240, 240, 240, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.projects__subtitle:not(:first-of-type) {
+  margin-top: 2.5rem;
+}
+
 .projects__list {
   display: flex;
   flex-direction: column;

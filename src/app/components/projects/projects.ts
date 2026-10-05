@@ -16,9 +16,10 @@ interface Project {
   styleUrl: './projects.css',
 })
 export class ProjectsComponent implements AfterViewInit {
-  openIndex = signal(-1);
+  openTeamIndex = signal(-1);
+  openPersonalIndex = signal(-1);
 
-  projects: Project[] = [
+  teamProjects: Project[] = [
     {
       name: 'Velare - Panel Web',
       description:
@@ -47,6 +48,9 @@ export class ProjectsComponent implements AfterViewInit {
       technologies: ['React', '.NET', 'PostgreSQL'],
       role: 'Fullstack Developer',
     },
+  ];
+
+  personalProjects: Project[] = [
     {
       name: 'Rcenter',
       description:
@@ -65,8 +69,14 @@ export class ProjectsComponent implements AfterViewInit {
 
   constructor(private el: ElementRef) {}
 
-  toggle(index: number) {
-    this.openIndex.set(this.openIndex() === index ? -1 : index);
+  toggleTeam(index: number) {
+    this.openPersonalIndex.set(-1);
+    this.openTeamIndex.set(this.openTeamIndex() === index ? -1 : index);
+  }
+
+  togglePersonal(index: number) {
+    this.openTeamIndex.set(-1);
+    this.openPersonalIndex.set(this.openPersonalIndex() === index ? -1 : index);
   }
 
   ngAfterViewInit() {

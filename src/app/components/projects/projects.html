@@ -9,13 +9,15 @@
       Proyectos<br /><span class="projects__accent">Destacados</span>
     </h2>
 
+    <h3 class="projects__subtitle">Trabajo en equipo</h3>
+
     <div class="projects__list">
-      @for (project of projects; track project.name; let i = $index) {
+      @for (project of teamProjects; track project.name; let i = $index) {
         <article
           class="project-card"
-          [class.project-card--open]="openIndex() === i"
+          [class.project-card--open]="openTeamIndex() === i"
         >
-          <button class="project-card__header" (click)="toggle(i)">
+          <button class="project-card__header" (click)="toggleTeam(i)">
             <div class="project-card__info">
               <h3 class="project-card__title">{{ project.name }}</h3>
               @if (project.role) {
@@ -45,7 +47,91 @@
             </div>
           </button>
 
-          @if (openIndex() === i) {
+          @if (openTeamIndex() === i) {
+            <div class="project-card__body">
+              @if (project.description) {
+                <p class="project-card__desc">{{ project.description }}</p>
+              }
+
+              @if (project.images?.length) {
+                <div class="project-card__images">
+                  @for (img of project.images; track img) {
+                    <img
+                      [src]="img"
+                      [alt]="project.name"
+                      class="project-card__img"
+                    />
+                  }
+                </div>
+              }
+
+              @if (project.url) {
+                <a
+                  [href]="project.url"
+                  target="_blank"
+                  rel="noopener"
+                  class="project-card__link"
+                >
+                  Ver proyecto
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15,3 21,3 21,9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
+                  </svg>
+                </a>
+              }
+            </div>
+          }
+        </article>
+      }
+    </div>
+
+    <h3 class="projects__subtitle">Proyectos personales</h3>
+
+    <div class="projects__list">
+      @for (project of personalProjects; track project.name; let i = $index) {
+        <article
+          class="project-card"
+          [class.project-card--open]="openPersonalIndex() === i"
+        >
+          <button class="project-card__header" (click)="togglePersonal(i)">
+            <div class="project-card__info">
+              <h3 class="project-card__title">{{ project.name }}</h3>
+              @if (project.role) {
+                <span class="project-card__role">{{ project.role }}</span>
+              }
+            </div>
+
+            <div class="project-card__right">
+              @if (project.technologies) {
+                <div class="project-card__stack">
+                  @for (tech of project.technologies; track tech) {
+                    <span class="project-card__badge">{{ tech }}</span>
+                  }
+                </div>
+              }
+              <svg
+                class="project-card__chevron"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </div>
+          </button>
+
+          @if (openPersonalIndex() === i) {
             <div class="project-card__body">
               @if (project.description) {
                 <p class="project-card__desc">{{ project.description }}</p>

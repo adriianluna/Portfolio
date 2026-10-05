@@ -5,124 +5,90 @@
       <span class="projects__tag">// proyectos</span>
     </div>
 
-    <div class="projects__header">
-      <h2 class="projects__title">
-        Proyectos<br /><span class="projects__accent">en GitHub</span>
-      </h2>
-      <a
-        href="https://github.com/adriianluna"
-        target="_blank"
-        rel="noopener"
-        class="projects__gh-link"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-        </svg>
-        &#64;adriianluna
-      </a>
-    </div>
+    <h2 class="projects__title">
+      Proyectos<br /><span class="projects__accent">Destacados</span>
+    </h2>
 
-    <!-- Loading skeleton -->
-    @if (loading()) {
-      <div class="projects__grid">
-        @for (s of skeletons; track s) {
-          <div class="project-card project-card--skeleton">
-            <div class="sk sk--short"></div>
-            <div class="sk sk--title"></div>
-            <div class="sk"></div>
-            <div class="sk sk--medium"></div>
-            <div class="sk-badges">
-              <div class="sk sk--badge"></div>
-              <div class="sk sk--badge"></div>
-            </div>
-            <div class="sk-actions">
-              <div class="sk sk--btn"></div>
-              <div class="sk sk--btn"></div>
-            </div>
-          </div>
-        }
-      </div>
-    }
-
-    <!-- Error state -->
-    @else if (error()) {
-      <div class="projects__error">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(0,255,136,0.4)" stroke-width="1.5">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <p>No se pudieron cargar los repositorios.</p>
-        <a
-          href="https://github.com/adriianluna"
-          target="_blank"
-          rel="noopener"
-          class="project-card__btn project-card__btn--gh"
-        >Ver perfil en GitHub</a>
-      </div>
-    }
-
-    <!-- Repos grid -->
-    @else {
-      <div class="projects__grid">
-        @for (repo of repos(); track repo.id) {
-          <article class="project-card">
-            <div class="project-card__header">
-              <span class="project-card__cat">{{ repo.language ?? 'Repo' }}</span>
-              <div class="project-card__stars">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="rgba(0,255,136,0.5)" stroke="none">
-                  <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
-                </svg>
-                {{ repo.stargazers_count }}
-              </div>
-            </div>
-
-            <h3 class="project-card__title">{{ formatName(repo.name) }}</h3>
-
-            <p class="project-card__desc">
-              {{ repo.description ?? 'Sin descripción disponible.' }}
-            </p>
-
-            <div class="project-card__stack">
-              @for (tech of getStack(repo); track tech) {
-                <span class="project-card__badge">{{ tech }}</span>
+    <div class="projects__list">
+      @for (project of projects; track project.name; let i = $index) {
+        <article
+          class="project-card"
+          [class.project-card--open]="openIndex() === i"
+        >
+          <button class="project-card__header" (click)="toggle(i)">
+            <div class="project-card__info">
+              <h3 class="project-card__title">{{ project.name }}</h3>
+              @if (project.role) {
+                <span class="project-card__role">{{ project.role }}</span>
               }
             </div>
 
-            <div class="project-card__actions">
-              <a
-                [href]="repo.html_url"
-                class="project-card__btn project-card__btn--gh"
-                target="_blank"
-                rel="noopener"
+            <div class="project-card__right">
+              @if (project.technologies) {
+                <div class="project-card__stack">
+                  @for (tech of project.technologies; track tech) {
+                    <span class="project-card__badge">{{ tech }}</span>
+                  }
+                </div>
+              }
+              <svg
+                class="project-card__chevron"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
               >
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
-                </svg>
-                GitHub
-              </a>
+                <path d="M6 9l6 6 6-6" />
+              </svg>
+            </div>
+          </button>
 
-              @if (repo.homepage) {
+          @if (openIndex() === i) {
+            <div class="project-card__body">
+              @if (project.description) {
+                <p class="project-card__desc">{{ project.description }}</p>
+              }
+
+              @if (project.images?.length) {
+                <div class="project-card__images">
+                  @for (img of project.images; track img) {
+                    <img
+                      [src]="img"
+                      [alt]="project.name"
+                      class="project-card__img"
+                    />
+                  }
+                </div>
+              }
+
+              @if (project.url) {
                 <a
-                  [href]="repo.homepage"
-                  class="project-card__btn project-card__btn--demo"
+                  [href]="project.url"
                   target="_blank"
                   rel="noopener"
+                  class="project-card__link"
                 >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  Ver proyecto
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <polyline points="15,3 21,3 21,9" />
+                    <line x1="10" y1="14" x2="21" y2="3" />
                   </svg>
-                  Live Demo
                 </a>
               }
             </div>
-          </article>
-        } @empty {
-          <p class="projects__empty">No se encontraron repositorios públicos.</p>
-        }
-      </div>
-    }
+          }
+        </article>
+      }
+    </div>
   </div>
 </section>

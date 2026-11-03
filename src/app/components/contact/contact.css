@@ -160,13 +160,30 @@
 
 @media (max-width: 900px) {
   .contact__grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact__inner {
+    width: 100%;
+    padding: 0 1.25rem;
   }
 }
 
 @media (max-width: 640px) {
   .contact {
     padding: 5rem 0;
+  }
+
+  .contact-item {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .contact-item__value {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }

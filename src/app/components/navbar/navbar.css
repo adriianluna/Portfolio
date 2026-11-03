@@ -154,6 +154,11 @@
 }
 
 @media (max-width: 768px) {
+  .navbar__inner {
+    width: 100%;
+    padding: 0 1.25rem;
+  }
+
   .navbar__links {
     display: none;
   }
@@ -164,5 +169,9 @@
 
   .mobile-menu {
     display: flex;
+  }
+
+  .mobile-menu button {
+    padding: 1rem 1.25rem;
   }
 }
